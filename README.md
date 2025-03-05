@@ -24,9 +24,14 @@ Before you begin, make sure you have the following installed:
 
    ## Install dependencies:
    ```
+   npm install
+npx react-native run-android
+npx react-native run-ios
    ```
 npm install
 npx react-native run-android
 npx react-native run-ios
 ```
-
+npm install
+npx react-native run-android
+npx react-native run-ios
