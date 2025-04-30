@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import CustomSplash from "../../components/Custom-Splash/CustomSplash";
 import AddRecordTow from "./AddRecordTwo";
 import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
+import Loader from "../../components/Loaders/Loaders";
 
 const MedicalRecordOne = () => {
       const navigation = useNavigation();
@@ -26,7 +27,7 @@ const MedicalRecordOne = () => {
       backgroundColor="#C6EFE5"
     />
        </BackgroundWrapper>
-
+<Loader/>
    </>
   );
 };

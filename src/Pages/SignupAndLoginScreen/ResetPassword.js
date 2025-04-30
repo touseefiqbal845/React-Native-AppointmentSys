@@ -11,67 +11,76 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import CustomInput from "../../components/Custom-Input/CustomInput";
 import CustomButton from "../../components/Custom-Button/CustomButton";
+import Loader from "../../components/Loaders/Loaders";
 
-const ResetPassword = ({ onButtonPress }) => {
+const ResetPassword = ({
+  onButtonPress,
+  isModalVisible,
+  setIsModalVisible,
+  setIsResetPasswordModalVisible,
+}) => {
   const navigation = useNavigation();
-  const [isModalVisible, setIsModalVisible] = useState(true);
   const [email, setEmail] = useState("");
 
   const handleContinue = () => {
     navigation.navigate("MenuScreen");
-    setIsModalVisible(true);
+    setIsModalVisible(false);
   };
 
   return (
-    <View style={styles.container}>
-      <Modal
-        visible={isModalVisible}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setIsModalVisible(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContainer}>
-            <View style={styles.indicator} />
+    <>
+      <View style={styles.container}>
+        <Modal
+          visible={isModalVisible}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setIsModalVisible(false)}
+        >
+              <TouchableOpacity style={styles.modalOverlay} onPress={() => setIsModalVisible(false)} >
+        
+            <View style={styles.modalContainer}>
+              <View style={styles.indicator} />
 
-            <View style={{ width: "100%", alignItems: "flex-start" }}>
-              <Text style={styles.title}>Reset password</Text>
-            </View>
+              <View style={{ width: "100%", alignItems: "flex-start" }}>
+                <Text style={styles.title}>Reset password</Text>
+              </View>
 
-            <View style={{ width: "100%", alignItems: "flex-start" }}>
-              <Text style={styles.subtitle}>
-                Set the new password for your account so you can login and
-                access all the features.
-              </Text>
-            </View>
+              <View style={{ width: "100%", alignItems: "flex-start" }}>
+                <Text style={styles.subtitle}>
+                  Set the new password for your account so you can login and
+                  access all the features.
+                </Text>
+              </View>
 
-            <CustomInput
-              isPassword
-              eyeicon={"password"}
-              iconPosition={"end"}
-              placeholder="New Password"
-              fontSize={16}
-              fontColor="#A0A3B5"
-            />
-            <CustomInput
-              isPassword
-              eyeicon={"password"}
-              iconPosition={"end"}
-              placeholder="Re-enter Password"
-              fontSize={16}
-              fontColor="#A0A3B5"
-            />
-
-            <View style={styles.continueButton}>
-              <CustomButton
-                buttonText="Update Password"
-                onButtonPress={handleContinue}
+              <CustomInput
+                isPassword
+                eyeicon={"password"}
+                iconPosition={"end"}
+                placeholder="New Password"
+                fontSize={16}
+                fontColor="#A0A3B5"
               />
+              <CustomInput
+                isPassword
+                eyeicon={"password"}
+                iconPosition={"end"}
+                placeholder="Re-enter Password"
+                fontSize={16}
+                fontColor="#A0A3B5"
+              />
+
+              <View style={styles.continueButton}>
+                <CustomButton
+                  buttonText="Update Password"
+                  onButtonPress={handleContinue}
+                />
+              </View>
             </View>
-          </View>
-        </View>
-      </Modal>
-    </View>
+          </TouchableOpacity>
+        </Modal>
+      </View>
+      <Loader />
+    </>
   );
 };
 

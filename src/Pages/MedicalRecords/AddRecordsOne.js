@@ -16,6 +16,7 @@ import ImageUploader from "./PhotoUploader";
 import CustomButton from "../../components/Custom-Button/CustomButton";
 import Icon from "react-native-vector-icons/FontAwesome";
 import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
+import Loader from "../../components/Loaders/Loaders";
 
 const menuItems = [
   { title: "Report", iconName: "file-text-o" },
@@ -160,7 +161,7 @@ const AddRecordOne = ({ onBackPress, onButtonPress, buttonText }) => {
         </View>
       </View>
     </BackgroundWrapper>
-
+<Loader/>
     </>
   );
 };

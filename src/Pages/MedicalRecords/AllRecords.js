@@ -14,6 +14,7 @@ import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import records from "./../../helpers/allRecords";
 import CustomButton from "../../components/Custom-Button/CustomButton";
 import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
+import Loader from "../../components/Loaders/Loaders";
 
 const Item = ({ record }) => (
   <View
@@ -163,7 +164,7 @@ const AllRecords = ({ onBackPress, onButtonPress, buttonText }) => {
         <CustomButton onPress={onButtonPress} onButtonPress={handleContinue} buttonText={"Add a Record"} />
       </View>
     </BackgroundWrapper>
-
+<Loader/>
     </>
   );
 };

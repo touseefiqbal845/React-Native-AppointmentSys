@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import CustomInput from "../../components/Custom-Input/CustomInput";
 import medicinesOrders from "./../../helpers/medicineOrderApi";
+import Loader from "../../components/Loaders/Loaders";
 
 const Item = ({ issue }) => (
   <View style={styles.itemContainer}>
@@ -40,6 +41,7 @@ const MedicineOrder = () => {
         numColumns={2}
         contentContainerStyle={styles.listContainer}
       />
+      <Loader/>
     </>
   );
 };

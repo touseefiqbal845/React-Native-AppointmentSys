@@ -7,11 +7,13 @@ import {
   Text,
   Animated,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import ListClicker from "../../components/ListClicker/ListClicker";
 import menusApi from "../../helpers/menusApi";
+import Loader from "../../components/Loaders/Loaders";
 
 const MenuScreen = ({ onBackPress }) => {
   const [scale] = useState(new Animated.Value(1));
@@ -36,6 +38,27 @@ const MenuScreen = ({ onBackPress }) => {
     setBgColor("#6F7FA1");
   };
 
+  const showLogoutAlert = () => {
+    Alert.alert(
+      "Logout",
+      "Are you sure you want to logout?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Logout cancelled"),
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            navigation.navigate("SignUpScreen");
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <>
       <View
@@ -57,11 +80,10 @@ const MenuScreen = ({ onBackPress }) => {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
-              // backgroundColor: "#6F7FA1",
             }}
           >
             <Image
-              source={require("../../assets/doctorgirl.jpg")}
+              source={require("../../assets/touseefiqbal_blue.jpeg")}
               style={{
                 width: 50,
                 height: 50,
@@ -82,7 +104,7 @@ const MenuScreen = ({ onBackPress }) => {
                   color: "white",
                 }}
               >
-                Abdullah Mamun
+               Touseef Iqbal
               </Text>
               <View
                 style={{
@@ -102,15 +124,22 @@ const MenuScreen = ({ onBackPress }) => {
                     marginLeft: 5,
                   }}
                 >
-                  01303-527300
+                  0303-527300
                 </Text>
               </View>
             </View>
           </View>
-          <Image
-            source={require("../../assets//close.png")}
-            style={styles.backIcons}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.replace("MyDoctorscreen");
+            }}
+            activeOpacity={0.7}
+          >
+            <Image
+              source={require("../../assets/close.png")}
+              style={styles.backIcons}
+            />
+          </TouchableOpacity>
         </View>
 
         <View
@@ -153,7 +182,7 @@ const MenuScreen = ({ onBackPress }) => {
           onPressIn={handlePressIn}
           onPressOut={handlePressOut}
           activeOpacity={0.8}
-          onPress={onBackPress}
+          onPress={showLogoutAlert}
         >
           <Animated.View
             style={[
@@ -179,6 +208,8 @@ const MenuScreen = ({ onBackPress }) => {
           </Animated.View>
         </TouchableOpacity>
       </View>
+
+      <Loader />
     </>
   );
 };
@@ -191,16 +222,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     backgroundColor: "#6F7FA1",
-
-    // margin: 20,
     borderRadius: 8,
-    // padding: 10,
-    shadowColor: "rgba(255, 255, 255, 0.1)",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    // shadowRadius: 4,
-    // elevation: 0.5,
     height: 70,
-    // width: 220,
   },
 });

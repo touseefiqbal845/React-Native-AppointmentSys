@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import CustomButton from "../../components/Custom-Button/CustomButton";
 import { customStyles } from "../../fonts/fontSetting";
+import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
 
 const CustomOnboarding = ({
   Img,
@@ -23,6 +24,8 @@ const CustomOnboarding = ({
   return (
     <React.Fragment>
       <View style={styles.Imagecontainer}>
+        <BackgroundWrapper>
+
         <StatusBar barStyle="light-content" />
         <View style={styles.logoBackground}>
           <Image source={Img} style={styles.logo} />
@@ -39,13 +42,15 @@ const CustomOnboarding = ({
 
           {buttonText && onButtonPress ? (
             <View style={styles.customButton}>
-              <CustomButton onPress={onButtonPress} buttonText={buttonText} />
+              <CustomButton onButtonPress={onButtonPress} buttonText={buttonText} />
             </View>
           ) : null}
           <TouchableOpacity onPress={onSkipPress} style={styles.skipButton}>
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
         </View>
+        </BackgroundWrapper>
+
       </View>
     </React.Fragment>
   );

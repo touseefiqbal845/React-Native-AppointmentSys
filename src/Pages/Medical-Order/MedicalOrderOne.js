@@ -3,11 +3,13 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import CustomSplash from "../../components/Custom-Splash/CustomSplash";
+import Loader from "../../components/Loaders/Loaders";
 
 const MedicalOrderOne = () => {
   const navigation = useNavigation();
 
   return (
+   <>
     <CustomSplash
       backIcon={require("../../assets/back-arrow.png")}
       backText="Medicine Orders"
@@ -21,6 +23,8 @@ const MedicalOrderOne = () => {
       onButtonPress={() => console.log("")}
       backgroundColor="#C6EFE5"
     />
+    <Loader/>
+   </>
   );
 };
 

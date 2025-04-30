@@ -7,6 +7,10 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+
+
 import Icon from "react-native-vector-icons/FontAwesome";
 import CustomButton from "../Custom-Button/CustomButton";
 import CustomHeader from "../CustomHeader/CustomHeader";
@@ -49,9 +53,21 @@ const DoctorBio = ({
   professiontextAlign = "",
 
   availbilityjustifyContent = "",
+  moveDetails,
 }) => {
+    const navigation = useNavigation();
+  const [opacity, setOpacity] = useState(1);
+
+  const handlePress = () => {
+    if (moveDetails) {
+      setOpacity(0.5); 
+      navigation.navigate('SelectTimeOne'); 
+    }
+  };
+
   return (
     <>
+    <TouchableOpacity onPress={handlePress} style={{ opacity }}>
       <View
         style={[
           styles.container,
@@ -116,7 +132,14 @@ const DoctorBio = ({
                     },
                   ]}
                 >
-                  <Icon name="favourite" size={24} color="#DB4437" />
+                  {[...Array(1)].map((_, index) => (
+                        <Icon
+                          key={index}
+                          name="star"
+                          size={15}
+                          color="#FFD700"
+                        />
+                      ))}
                   <Text style={styles.Stories}>3.2</Text>
                 </View>
               </View>
@@ -218,10 +241,16 @@ const DoctorBio = ({
                     { alignItems: "center", justifyContent: "space-between" },
                   ]}
                 >
-                  {/* <StarRatingDisplay rating={4.5} /> */}
                   <View style={styles.FavouriteIcon}>
                     <TouchableOpacity style={styles.option}>
-                      <Icon name="favourite" size={24} color="#DB4437" />
+                      {[...Array(1)].map((_, index) => (
+                        <Icon
+                          key={index}
+                          name="star"
+                          size={15}
+                          color="#FFD700"
+                        />
+                      ))}
                     </TouchableOpacity>
                   </View>
                   <Text style={[styles.Stories]}>
@@ -260,7 +289,7 @@ const DoctorBio = ({
               {OnlyRating && (
                 <View style={styles.reviews}>
                   <Text style={styles.Stories}>
-                    {[...Array(5)].map((_, index) => (
+                    {[...Array(2)].map((_, index) => (
                       <Icon key={index} name="star" size={15} color="#FFD700" />
                     ))}
                   </Text>
@@ -322,6 +351,7 @@ const DoctorBio = ({
           )}
         </View>
       </View>
+      </TouchableOpacity>
     </>
   );
 };

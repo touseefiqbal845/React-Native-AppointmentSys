@@ -4,29 +4,30 @@ import { useNavigation } from "@react-navigation/native";
 
 import CustomInput from "../../components/Custom-Input/CustomInput";
 import CustomButton from "../../components/Custom-Button/CustomButton";
+import Loader from "../../components/Loaders/Loaders";
 
-const ForgotPasswordModal = ({ isModalVisible, setIsModalVisible }) => {
+const ForgotPasswordModal = ({isModalVisible, setIsModalVisible, setIsFourDigitModalVisible }) => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
 
   const handleContinue = () => {
-    console.log("Email entered:", email);
-    // setIsModalVisible(false);
-    navigation.navigate("FourDigitScreen");
-  };
+    setIsModalVisible(false);  
+    setIsFourDigitModalVisible(true)
+  }
 
   const handleCancel = () => {
     setIsModalVisible(false);
   };
 
   return (
+ <>
     <Modal
       visible={isModalVisible}
       transparent
       animationType="slide"
-      onRequestClose={handleCancel}
+      onRequestClose={() => setIsModalVisible(false)}
     >
-      <TouchableOpacity style={styles.modalOverlay} onPress={handleCancel}>
+      <TouchableOpacity style={styles.modalOverlay} onPress={() => setIsModalVisible(false)} >
         <TouchableOpacity activeOpacity={1} style={styles.modalContainer}>
           <View style={styles.indicator} />
           <Text style={styles.title}>Forgot password</Text>
@@ -60,8 +61,11 @@ const ForgotPasswordModal = ({ isModalVisible, setIsModalVisible }) => {
         </TouchableOpacity>
       </TouchableOpacity>
     </Modal>
+    <Loader/>
+ </>
   );
 };
+
 
 const styles = StyleSheet.create({
   modalOverlay: {

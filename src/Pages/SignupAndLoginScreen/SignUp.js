@@ -8,69 +8,86 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import CustomInput from "../../components/Custom-Input/CustomInput";
 import CustomButton from "./../../components/Custom-Button/CustomButton";
 import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
+import Loader from "../../components/Loaders/Loaders";
+import ForgotPasswordModal from "./ForgotPassword";
 
 const SignUp = ({ buttonText, onButtonPress }) => {
   const navigation = useNavigation();
   const [isChecked, setIsChecked] = useState(false);
 
+
+
+  const handleSignup = () => {
+    navigation.navigate("LoginScreen");
+
+  }
+
+
+
   return (
-    <BackgroundWrapper>
+    <>
+      <BackgroundWrapper>
+        <View style={styles.container}>
+          <View style={styles.signup}>
+            <Text style={styles.MainHeading}>Join us to start searching</Text>
+            <Text style={styles.smallHeading}>
+              You can search course, apply course and find scholarship for
+              abroad studies
+            </Text>
+            <View style={styles.socialcontainer}>
+              <TouchableOpacity style={styles.option}>
+                <AntDesign name="google" size={24} color="#3b5998" />
+                <Text style={styles.socialtext}>Google</Text>
+              </TouchableOpacity>
 
-    <View style={styles.container}>
-      <View style={styles.signup}>
-        <Text style={styles.MainHeading}>Join us to start searching</Text>
-        <Text style={styles.smallHeading}>
-          You can search course, apply course and find scholarship for abroad
-          studies
-        </Text>
-        <View style={styles.socialcontainer}>
-          <TouchableOpacity style={styles.option}>
-            <AntDesign name="google" size={24} color="#3b5998" />
-            <Text style={styles.socialtext}>Google</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.option}>
-            <Icon name="facebook" size={24} color="#3b5998" />
-            <Text style={styles.socialtext}>Facebook</Text>
-          </TouchableOpacity>
-        </View>
-        <CustomInput placeholder="Name" fontSize={16} fontColor="#A0A3B5" />
-        <CustomInput placeholder="Email" fontSize={16} fontColor="#A0A3B5" />
-        <CustomInput
-          isPassword
-          eyeicon={"password"}
-          iconPosition={"end"}
-          placeholder="Password"
-          fontSize={16}
-          fontColor="#A0A3B5"
-        />
-        <View style={styles.agree}>
-          <TouchableOpacity onPress={() => setIsChecked(!isChecked)}>
-            <Icon
-              name={isChecked ? "check-box" : "check-box-outline-blank"}
-              size={24}
-              color="#3b5998"
+              <TouchableOpacity style={styles.option}>
+                <Icon name="facebook" size={24} color="#3b5998" />
+                <Text style={styles.socialtext}>Facebook</Text>
+              </TouchableOpacity>
+            </View>
+            <CustomInput placeholder="Name" fontSize={16} fontColor="#A0A3B5" />
+            <CustomInput
+              placeholder="Email"
+              fontSize={16}
+              fontColor="#A0A3B5"
             />
-          </TouchableOpacity>
-          <Text style={styles.agreeHeading}>
-            I agree with the Terms of Service & Privacy Policy
-          </Text>
+            <CustomInput
+              isPassword
+              eyeicon={"password"}
+              iconPosition={"end"}
+              placeholder="Password"
+              fontSize={16}
+              fontColor="#A0A3B5"
+            />
+            <View style={styles.agree}>
+              <TouchableOpacity onPress={() => setIsChecked(!isChecked)}>
+                <Icon
+                  name={isChecked ? "check-box" : "check-box-outline-blank"}
+                  size={24}
+                  color="#3b5998"
+                />
+              </TouchableOpacity>
+              <Text style={styles.agreeHeading}>
+                I agree with the Terms of Service & Privacy Policy
+              </Text>
+            </View>
+
+            <View style={styles.customButton}>
+              <CustomButton onButtonPress={handleSignup} buttonText={"Sign up"} />
+
+         
+              <TouchableOpacity
+                onPress={() => navigation.navigate("LoginScreen")}
+              >
+                <Text style={styles.logindirect}>Have an account? Log in</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+         
         </View>
-
-        <View style={styles.customButton}>
-          <CustomButton onPress={onButtonPress} buttonText={"Sign up"} />
-
-          <TouchableOpacity onPress={() => navigation.navigate("ForgotScreen")}>
-            <Text style={styles.logindirect}>Forgot password</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
-            <Text style={styles.logindirect}>Have an account? Log in</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
-    </BackgroundWrapper>
-
+      </BackgroundWrapper>
+      <Loader />
+    </>
   );
 };
 

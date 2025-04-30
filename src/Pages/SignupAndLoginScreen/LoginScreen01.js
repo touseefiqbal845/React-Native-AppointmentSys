@@ -3,83 +3,113 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
-
 import { useNavigation } from "@react-navigation/native";
 
 import CustomInput from "../../components/Custom-Input/CustomInput";
 import CustomButton from "../../components/Custom-Button/CustomButton";
 import ForgotPasswordModal from "./ForgotPassword";
 import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
+import Loader from "../../components/Loaders/Loaders";
+import FourDigit from "./FourDigit";
+import ResetPassword from "./ResetPassword";
 
 const Login01 = ({ buttonText, onButtonPress }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isForgotPasswordModalVisible, setIsForgotPasswordModalVisible] =
+    useState(false);
+  const [isFourDigitModalVisible, setIsFourDigitModalVisible] = useState(false);
+  const [isResetPasswordModalVisible, setIsResetPasswordModalVisible] =
+    useState(false);
+
   const navigation = useNavigation();
 
   const handleForgotPasswordPress = () => {
-    setIsModalVisible(true);
+    setIsForgotPasswordModalVisible(true);
   };
 
   return (
-    <BackgroundWrapper>
-
-    <View style={styles.container}>
-      {/* MAIN LOGIN SCREEN */}
-      <View style={styles.signup}>
-        <Text style={styles.MainHeading}>Welcome back</Text>
-        <Text style={styles.smallHeading}>
-          You can search course, apply course and find scholarship for abroad
-          studies
-        </Text>
-
-        <View style={styles.socialcontainer}>
-          <TouchableOpacity style={styles.option}>
-                      <AntDesign name="google" size={24} color="#3b5998" />
-               <Text style={styles.socialtext}>Google</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.option}>
-            <Icon name="facebook" size={24} color="#3b5998" />
-            <Text style={styles.socialtext}>Facebook</Text>
-          </TouchableOpacity>
-        </View>
-
-        <CustomInput
-          placeholder="Email"
-          isEmailValid
-          fontSize={16}
-          fontColor="#A0A3B5"
-        />
-
-        <CustomInput
-          isPassword
-          eyeicon={"password"}
-          iconPosition={"end"}
-          placeholder="Password"
-          fontSize={16}
-          fontColor="#A0A3B5"
-        />
-
-        <View style={styles.customButton}>
-          <CustomButton onPress={onButtonPress} buttonText={"Login"} />
-          <TouchableOpacity onPress={handleForgotPasswordPress}>
-            <Text style={styles.signupdirect}>Forgot password</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.signupHeading}>
-          <TouchableOpacity onPress={() => navigation.navigate("SignUpScreen")}>
-            <Text style={styles.signupdirect}>
-              Don’t have an account? Join us
+    <>
+      <BackgroundWrapper>
+        <View style={styles.container}>
+          {/* MAIN LOGIN SCREEN */}
+          <View style={styles.signup}>
+            <Text style={styles.MainHeading}>Welcome back</Text>
+            <Text style={styles.smallHeading}>
+              You can search course, apply course and find scholarship for
+              abroad studies
             </Text>
-          </TouchableOpacity>
+
+            <View style={styles.socialcontainer}>
+              <TouchableOpacity style={styles.option}>
+                <AntDesign name="google" size={24} color="#3b5998" />
+                <Text style={styles.socialtext}>Google</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.option}>
+                <Icon name="facebook" size={24} color="#3b5998" />
+                <Text style={styles.socialtext}>Facebook</Text>
+              </TouchableOpacity>
+            </View>
+
+            <CustomInput
+              placeholder="Email"
+              isEmailValid
+              fontSize={16}
+              fontColor="#A0A3B5"
+            />
+
+            <CustomInput
+              isPassword
+              eyeicon={"password"}
+              iconPosition={"end"}
+              placeholder="Password"
+              fontSize={16}
+              fontColor="#A0A3B5"
+            />
+
+            <View style={styles.customButton}>
+              <CustomButton onButtonPress={() => navigation.navigate("MenuScreen")} buttonText={"Login"} />
+              <TouchableOpacity onPress={handleForgotPasswordPress}>
+                <Text style={styles.signupdirect}>Forgot password</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.signupHeading}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("SignUpScreen")}
+              >
+                <Text style={styles.signupdirect}>
+                  Don’t have an account? Join us
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <ForgotPasswordModal
+            isModalVisible={isForgotPasswordModalVisible}
+            setIsModalVisible={setIsForgotPasswordModalVisible}
+            setIsFourDigitModalVisible={setIsFourDigitModalVisible}
+          />
+
+          {isFourDigitModalVisible && (
+            <FourDigit
+              isModalVisible={isFourDigitModalVisible}
+              setIsModalVisible={setIsFourDigitModalVisible}
+              setIsResetPasswordModalVisible={setIsResetPasswordModalVisible}
+            />
+          )}
+
+          {isResetPasswordModalVisible && (
+            <ResetPassword 
+            isModalVisible={isResetPasswordModalVisible}
+            setIsModalVisible={setIsResetPasswordModalVisible} 
+
+            
+            />
+          )}
         </View>
-      </View>
-
-      {isModalVisible && (
-        <ForgotPasswordModal setIsModalVisible={setIsModalVisible} />
-      )}
-    </View>
-    </BackgroundWrapper>
-
+      </BackgroundWrapper>
+      <Loader />
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import singleDoctor from "../../helpers/SingleDoctorApi";
 import CustomButton from "../../components/Custom-Button/CustomButton";
 import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
+import Loader from "../../components/Loaders/Loaders";
 
 const SelectTimeOne = () => {
   const navigation = useNavigation();
@@ -90,6 +91,7 @@ const SelectTimeOne = () => {
         </View>
       </View>
     </BackgroundWrapper>
+    <Loader/>
 
     </>
   );

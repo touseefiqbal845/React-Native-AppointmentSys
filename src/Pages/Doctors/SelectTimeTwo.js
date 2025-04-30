@@ -1,5 +1,5 @@
-import React from "react";
-import { FlatList, View, StyleSheet, Text } from "react-native";
+import React, { useState } from "react";
+import { FlatList, View, StyleSheet, Text, Modal, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import DoctorBio from "../../components/Doctors-Bio/DoctorBio";
@@ -8,9 +8,25 @@ import singleDoctor from "../../helpers/SingleDoctorApi";
 import CustomButton from "../../components/Custom-Button/CustomButton";
 import { buttonData, slotData } from "../../helpers/slotsDataApi";
 import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
+import Loader from "../../components/Loaders/Loaders";
 
 const SelectTimeTwo = () => {
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleSlotSelection = () => {
+    setModalVisible(true);
+  };
+
+  const handleEditAppointment = () => {
+    setModalVisible(false);
+    console.log("Edit appointment");
+  };
+
+  const handleDone = () => {
+    setModalVisible(false);
+    console.log("Done");
+  };
 
   return (
     <>
@@ -38,9 +54,7 @@ const SelectTimeTwo = () => {
                 width={"auto"}
                 buttonText={item.date}
                 smallTextPermission={item.availability}
-                onButtonPress={() =>
-                  console.log(`Button Pressed: ${item.date}`)
-                }
+                onButtonPress={() => handleSlotSelection()}
                 textcolor={"#000000"}
                 backgroundColor={"transparent"}
                 borderColor={"#6772941A"}
@@ -48,7 +62,6 @@ const SelectTimeTwo = () => {
                 isPressedcolor={"#0EBE7F"}
               />
             )}
-            // showsHorizontalScrollIndicator={true}
             ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
           />
         </View>
@@ -70,9 +83,7 @@ const SelectTimeTwo = () => {
                 <CustomButton
                   width={"auto"}
                   buttonText={item.time}
-                  onButtonPress={() =>
-                    console.log(`Button Pressed: ${item.time}`)
-                  }
+                  onButtonPress={() => handleSlotSelection()}
                   textcolor={"#0EBE7F"}
                   backgroundColor={"#0EBE7F14"}
                   borderColor={""}
@@ -97,9 +108,7 @@ const SelectTimeTwo = () => {
                 <CustomButton
                   width={"auto"}
                   buttonText={item.time}
-                  onButtonPress={() =>
-                    console.log(`Button Pressed: ${item.time}`)
-                  }
+                  onButtonPress={() => handleSlotSelection()}
                   textcolor={"#0EBE7F"}
                   backgroundColor={"#0EBE7F14"}
                   borderColor={""}
@@ -112,6 +121,32 @@ const SelectTimeTwo = () => {
           </View>
         </View>
       </BackgroundWrapper>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Thank you! Your appointment is booked.</Text>
+            <Text style={styles.modalText}>
+              You booked an appointment with Dr. Pediatrician Purpieson on February 21, at 02:00 PM.
+            </Text>
+            <View style={styles.modalButtonContainer}>
+              <TouchableOpacity onPress={handleDone} style={styles.modalButton}>
+                <Text style={styles.modalButtonText}>Done</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleEditAppointment} style={[styles.modalButton, styles.editButton]}>
+                <Text style={styles.modalButtonText}>Edit your appointment</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Loader />
     </>
   );
 };
@@ -132,7 +167,6 @@ const styles = StyleSheet.create({
   },
   dateText: {
     marginBottom: 10,
-
     color: "#222222",
     fontWeight: "bold",
     fontSize: 14,
@@ -153,9 +187,53 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: "100%",
   },
-
   rowWrapper: {
     justifyContent: "space-between",
     marginBottom: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+  },
+  modalContent: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 15,
+    width: "80%",
+    alignItems: "center",
+    elevation: 10,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 15,
+    color: "#333",
+  },
+  modalText: {
+    fontSize: 16,
+    textAlign: "center",
+    color: "#555",
+    marginBottom: 25,
+  },
+  modalButtonContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
+  modalButton: {
+    backgroundColor: "#0EBE7F",
+    padding: 12,
+    borderRadius: 10,
+    marginBottom: 15,
+    width: "80%",
+    alignItems: "center",
+  },
+  modalButtonText: {
+    color: "white",
+    fontSize: 16,
+  },
+  editButton: {
+    backgroundColor: "#f5a623",
   },
 });

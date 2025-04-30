@@ -21,11 +21,13 @@ const CustomSplash = ({
   buttonText,
   onButtonPress,
   backgroundColor,
+  showHeader
 }) => {
   return (
     <React.Fragment>
-        <CustomHeader backText={backText} onBackPress={onBackPress}/>
-
+          {showHeader ? (
+        <CustomHeader backText={backText} onBackPress={onBackPress} />
+      ) : null}
       <View style={styles.container}>
         <View
           style={[

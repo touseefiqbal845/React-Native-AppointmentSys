@@ -7,6 +7,8 @@ import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import doctors from "../../helpers/doctorsApi";
 import CustomInput from "../../components/Custom-Input/CustomInput";
 import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
+import Loader from "../../components/Loaders/Loaders";
+import CustomTabBar from "../../components/Navbar/Navbar";
 
 const MyDoctors = () => {
   const navigation = useNavigation();
@@ -15,6 +17,7 @@ const MyDoctors = () => {
     <>
       <BackgroundWrapper>
         <CustomHeader
+          showMenuIcon={true}
           backText={"My Doctors"}
           onBackPress={() => navigation.goBack()}
         />
@@ -43,13 +46,16 @@ const MyDoctors = () => {
               findDoctor={true}
               OnlyBook={true}
               exp={true}
+              moveDetails={true}
             />
           )}
           keyExtractor={(item) => item.id}
           numRows={2}
           // contentContainerStyle={styles.listContainer}
         />
+        <CustomTabBar />
       </BackgroundWrapper>
+      <Loader />
     </>
   );
 };

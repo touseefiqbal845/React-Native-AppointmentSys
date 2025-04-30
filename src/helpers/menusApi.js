@@ -1,7 +1,7 @@
 export default menus = [
   {
     id: "1",
-    name: "My Doctors",
+    name: "Doctors",
     img: require("../assets/menuicon/mydoctor.png"),
     screen: "MyDoctorscreen",
   },
@@ -15,7 +15,7 @@ export default menus = [
     id: "3",
     name: "Payments",
     img: require("../assets/menuicon/payment.png"),
-    screen: "MedicalOrderOne", 
+    screen: "PaymentScreen", 
   },
   {
     id: "4",
@@ -27,7 +27,7 @@ export default menus = [
     id: "5",
     name: "Privacy & Policy",
     img: require("../assets/menuicon/privacy.png"),
-    screen: "PrivacyScreen", 
+    screen: "PrivacyPolicyScreen", 
   },
   {
     id: "6",
@@ -39,6 +39,6 @@ export default menus = [
     id: "7",
     name: "Settings",
     img: require("../assets/menuicon/settings.png"),
-    screen: "Navbar", 
+    screen: "SettingsScreen", 
   },
 ];

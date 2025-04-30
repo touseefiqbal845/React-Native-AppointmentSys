@@ -10,9 +10,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 import CustomButton from "../../components/Custom-Button/CustomButton";
+import Loader from "../../components/Loaders/Loaders";
 
-const FourDigit = ({ onSubmitCode }) => {
-  const [isModalVisible, setIsModalVisible] = useState(true);
+const FourDigit = ({ onSubmitCode,isModalVisible, setIsModalVisible, setIsResetPasswordModalVisible }) => {
   const [code, setCode] = useState(["", "", "", ""]);
   const navigation = useNavigation();
 
@@ -26,55 +26,62 @@ const FourDigit = ({ onSubmitCode }) => {
   };
 
   const handleContinue = () => {
-    navigation.navigate("ResetPasswordScreen");
-    setIsModalVisible(true);
-  };
+    setIsModalVisible(false);  
+    setIsResetPasswordModalVisible(true)
+  }
 
   const inputs = [];
 
-  return (
-    <Modal
-      visible={isModalVisible}
-      transparent={true}
-      animationType="slide"
-      onRequestClose={() => setIsModalVisible(false)}
-    >
-      <View style={styles.modalOverlay}>
-        <View style={styles.modalContainer}>
-          <View style={styles.indicator} />
-          <View style={{ width: "100%", alignItems: "flex-start" }}>
-            <Text style={styles.title}>Enter 4 Digits Code</Text>
-          </View>
-          <View style={{ width: "100%", alignItems: "flex-start" }}>
-            <Text style={styles.subtitle}>
-              Enter the 4-digit code that you received on your email.
-            </Text>
-          </View>
-          <View style={styles.codeContainer}>
-            {code.map((digit, index) => (
-              <TextInput
-                key={index}
-                ref={(ref) => (inputs[index] = ref)}
-                value={digit}
-                onChangeText={(text) => handleInputChange(text, index)}
-                maxLength={1}
-                keyboardType="number-pad"
-                style={styles.input}
-              />
-            ))}
-          </View>
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
-          <CustomButton
-            buttonText="Continue"
-            onPress={() => {
-              onSubmitCode(code.join(""));
-              setIsModalVisible(false);
-            }}
-            onButtonPress={handleContinue}
-          />
-        </View>
-      </View>
-    </Modal>
+  return (
+    <>
+      <Modal
+          visible={isModalVisible}
+          transparent
+          animationType="slide"
+          onRequestClose={() => setIsModalVisible(false)}
+        >
+            <TouchableOpacity style={styles.modalOverlay} onPress={() => setIsModalVisible(false)} >
+           <View style={styles.modalContainer}>
+            <View style={styles.indicator} />
+            <View style={{ width: "100%", alignItems: "flex-start" }}>
+              <Text style={styles.title}>Enter 4 Digits Code</Text>
+            </View>
+            <View style={{ width: "100%", alignItems: "flex-start" }}>
+              <Text style={styles.subtitle}>
+                Enter the 4-digit code that you received on your email.
+              </Text>
+            </View>
+            <View style={styles.codeContainer}>
+              {code.map((digit, index) => (
+                <TextInput
+                  key={index}
+                  ref={(ref) => (inputs[index] = ref)}
+                  value={digit}
+                  onChangeText={(text) => handleInputChange(text, index)}
+                  maxLength={1}
+                  keyboardType="number-pad"
+                  style={styles.input}
+                />
+              ))}
+            </View>
+
+            <CustomButton
+              buttonText="Continue"
+              onPress={() => {
+                onSubmitCode(code.join(""));
+                setIsModalVisible(false);
+              }}
+              onButtonPress={handleContinue}
+            />
+          </View>
+        </TouchableOpacity>
+      </Modal>
+      <Loader />
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, ActivityIndicator, View } from "react-native";
 import { customStyles } from "../../fonts/fontSetting";
 
 const CustomButton = ({
@@ -16,22 +16,34 @@ const CustomButton = ({
   onButtonPress = () => {},
 }) => {
   const [isPressed, setIsPressed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handlePress = () => {
+    setIsPressed(true);
+    setIsLoading(true);
+
+    // Disable button for 2 seconds
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsPressed(false);
+      onButtonPress();
+    }, 2000); // Disable for 2 seconds
+  };
 
   return (
     <TouchableOpacity
-    activeOpacity={0.7}
+      activeOpacity={0.7}
       style={[
-        
         styles.button,
         {
           backgroundColor: isPressed
-            ? isPressedcolor || backgroundColor ||"rgb(41, 239, 170)"
+            ? isPressedcolor || backgroundColor || "rgb(41, 239, 170)"
             : backgroundColor
             ? backgroundColor
             : customStyles.colorPrimary,
 
           borderColor: isPressed
-            ? isPressedbordercolor 
+            ? isPressedbordercolor
             : borderColor
             ? borderColor
             : "",
@@ -45,29 +57,41 @@ const CustomButton = ({
       ]}
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}
-      onPress={onButtonPress}
+      onPress={handlePress}
+      disabled={isLoading} // Disable button while loading
     >
-      <Text
-        style={[
-          styles.textStyle,
-          {
-            color: isPressed ? "#FFF" : textcolor ? textcolor : "#FFF",
-          },
-        ]}
-      >
-        {buttonText}
-      </Text>
-      {smallTextPermission && (
+      <View style={styles.textContainer}>
         <Text
           style={[
-            styles.smallText,
+            styles.textStyle,
             {
               color: isPressed ? "#FFF" : textcolor ? textcolor : "#FFF",
             },
           ]}
         >
-          {smallTextPermission}
+          {buttonText}
         </Text>
+
+        {smallTextPermission && (
+          <Text
+            style={[
+              styles.smallText,
+              {
+                color: isPressed ? "#FFF" : textcolor ? textcolor : "#FFF",
+              },
+            ]}
+          >
+            {smallTextPermission}
+          </Text>
+        )}
+      </View>
+
+      {isLoading && (
+        <ActivityIndicator
+          style={styles.loader}
+          size="small"
+          color="black"
+        />
       )}
     </TouchableOpacity>
   );
@@ -81,6 +105,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
+    position: "relative", 
+  },
+  textContainer: {
+    position: "relative",
+    zIndex: 1, 
   },
   textStyle: {
     fontSize: 14,
@@ -89,6 +118,10 @@ const styles = StyleSheet.create({
   smallText: {
     fontSize: 8,
     fontFamily: "",
+  },
+  loader: {
+    position: "absolute", 
+    zIndex: 2, 
   },
 });
 

@@ -2,21 +2,20 @@ import React from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-
 import DoctorBio from "../../components/Doctors-Bio/DoctorBio";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import doctors from "../../helpers/doctorsApi";
 import CustomInput from "../../components/Custom-Input/CustomInput";
 
 const FindDoctors = () => {
-      const navigation = useNavigation();
-  
-      
+  const navigation = useNavigation();
+
   return (
     <>
       <CustomHeader
+        showMenuIcon={true}
         backText={"Find Doctors"}
-         onBackPress={() => navigation.goBack()}
+        onBackPress={() => navigation.goBack()}
       />
       <View
         style={{
@@ -43,6 +42,7 @@ const FindDoctors = () => {
             findDoctor={true}
             OnlyBook={true}
             exp={true}
+            moveDetails={true}
           />
         )}
         keyExtractor={(item) => item.id}

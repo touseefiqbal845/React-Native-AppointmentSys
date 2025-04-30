@@ -16,6 +16,7 @@ import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import CustomInput from "../../components/Custom-Input/CustomInput";
 import issues from "./../../helpers/issueApi";
 import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
+import Loader from "../../components/Loaders/Loaders";
 
 const HelpCenter = ({ onBackPress }) => {
   const navigation = useNavigation();
@@ -90,6 +91,7 @@ const HelpCenter = ({ onBackPress }) => {
           />
         </View>
       </BackgroundWrapper>
+      <Loader/>
     </>
   );
 };

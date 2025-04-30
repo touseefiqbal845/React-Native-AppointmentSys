@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import AppNavigator from "./src/Pages/Navigation/AppNavigator";
-import BackgroundWrapper from "./src/Pages/SplashScreen/BackgroundWrapper"; 
+import SplashScreen from "./src/Pages/SplashScreen/SplashScreen";
+import AppNavigator from "./src/components/Navigation/AppNavigator";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsLoading(false);
     }, 4000);
+
+    return () => clearTimeout(timer); 
   }, []);
 
   return (
     <SafeAreaProvider>
-      <AppNavigator />
+      {isLoading ? <SplashScreen /> : <AppNavigator />}
     </SafeAreaProvider>
   );
 };

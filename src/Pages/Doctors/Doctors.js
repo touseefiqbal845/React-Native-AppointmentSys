@@ -10,6 +10,7 @@ import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
 import CustomTabBar from "../../components/Navbar/Navbar";
 import { slotData } from "../../helpers/slotsDataApi";
 import CustomButton from "../../components/Custom-Button/CustomButton";
+import Loader from "../../components/Loaders/Loaders";
 
 const filterCategoryData = [
   { id: "1", time: "All" },
@@ -41,6 +42,7 @@ const Doctors = () => {
     <>
       <BackgroundWrapper>
         <CustomHeader
+        showMenuIcon = {true} 
           backText={"Doctors"}
           onBackPress={() => navigation.goBack()}
         />
@@ -78,6 +80,8 @@ const Doctors = () => {
                 borderWidth={0}
                 isPressedcolor={"#0EBE7F"}
                 style={styles.buttonStyle}
+              moveDetails={true}
+
               />
             )}
             contentContainerStyle={styles.scrollContentContainer}
@@ -94,6 +98,7 @@ const Doctors = () => {
               OnlyRating
               speciality
               exp={true}
+              moveDetails={true}
             />
           )}
           keyExtractor={(item) => item.id}
@@ -102,6 +107,7 @@ const Doctors = () => {
         />
         <CustomTabBar />
       </BackgroundWrapper>
+      <Loader/>
     </>
   );
 };

@@ -12,12 +12,14 @@ import { useNavigation } from "@react-navigation/native";
 
 import CustomButton from "../../components/Custom-Button/CustomButton";
 import CustomSplash from "../../components/Custom-Splash/CustomSplash";
+import Loader from "../../components/Loaders/Loaders";
 
 const AddRecordTowComponent = ({ onBackPress }) => {
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = useState(true);
 
   return (
+  <>
     <Modal
       visible={isModalVisible}
       transparent={true}
@@ -103,6 +105,8 @@ const AddRecordTowComponent = ({ onBackPress }) => {
         </View>
       </View>
     </Modal>
+    <Loader/>
+  </>
   );
 };
 const styles = StyleSheet.create({

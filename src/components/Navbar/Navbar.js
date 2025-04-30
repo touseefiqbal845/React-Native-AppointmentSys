@@ -1,30 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const tabItems = [
-  { name: "home", screen: "DoctorsScreen", isActive: true },
-  { name: "favorite-border", screen: "FavouriteScreens", isActive: false },
-  { name: "people-outline", screen: "PopularDoctorsScreens", isActive: false },
-  { name: "menu", screen: "MenuScreen", isActive: false },
+  { name: "home", screen: "MyDoctorscreen" },
+  { name: "people-outline", screen: "DoctorsScreen" },
+  { name: "favorite-border", screen: "FavouriteScreens" },
+  { name: "menu", screen: "MenuScreen" },
 ];
 
 const CustomTabBar = () => {
+  const [activeTab, setActiveTab] = useState(0);
   const navigation = useNavigation();
+  const route = useRoute();
+
+  useEffect(() => {
+    const currentScreenIndex = tabItems.findIndex(
+      (item) => item.screen === route.name
+    );
+    if (currentScreenIndex !== -1) {
+      setActiveTab(currentScreenIndex);
+    }
+  }, [route]);
+
+  const handleTabPress = (index, screen) => {
+    setActiveTab(index);
+    navigation.navigate(screen);
+  };
 
   return (
     <View style={styles.container}>
       {tabItems.map((item, index) => (
         <TouchableOpacity
           key={index}
-          style={item.isActive ? styles.greenCircle : styles.iconButton}
-          onPress={() => navigation.navigate(item.screen)}
+          style={index === activeTab ? styles.greenCircle : styles.iconButton}
+          onPress={() => handleTabPress(index, item.screen)}
         >
           <Icon
             name={item.name}
             size={24}
-            color={item.isActive ? "#fff" : "#9095A0"}
+            color={index === activeTab ? "#fff" : "#9095A0"}
           />
         </TouchableOpacity>
       ))}

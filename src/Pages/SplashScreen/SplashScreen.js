@@ -11,6 +11,7 @@ const SplashScreen = () => {
           Img={require("../../assets/logo.png")}
           bigHeading="Doctor Hunt"
           fontSize={25}
+          showHeader={false}
         />
       </View>
     </BackgroundWrapper>
