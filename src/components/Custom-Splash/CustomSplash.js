@@ -46,9 +46,9 @@ const CustomSplash = ({
 
         {buttonText && onButtonPress ? (
           <View style={styles.customButton}>
-            <CustomButton onPress={onButtonPress} buttonText={buttonText} />
+            <CustomButton onButtonPress={onButtonPress} buttonText={buttonText} />
           </View>
-        ) : null}
+         ) : null} 
       </View>
     </React.Fragment>
   );
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "transparent",
     padding: 20,
   },
  

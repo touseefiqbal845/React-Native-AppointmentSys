@@ -9,19 +9,45 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import ImageUploader from "./PhotoUploader";
 import CustomButton from "../../components/Custom-Button/CustomButton";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import Icon from "react-native-vector-icons/FontAwesome";
+import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
+
+const menuItems = [
+  { title: "Report", iconName: "file-text-o" },
+  { title: "Prescription", iconName: "stethoscope" },
+  { title: "Invoice", iconName: "file-text-o" },
+];
 
 const AddRecordOne = ({ onBackPress, onButtonPress, buttonText }) => {
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const navigation = useNavigation();
+  const [selectedIndex, setSelectedIndex] = useState(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+  
+
+  const handlePress = (index) => {
+    // setSelectedIndex(index);
+  };
+
+  const handleContinue = () => {
+    setIsModalVisible(false);
+
+    navigation.navigate("AddMedicalRecordTwo");
+    
+  };
+
 
   return (
     <>
+    <BackgroundWrapper>
+
       <CustomHeader
         backText={"Add Records"}
-        onBackPress={() => console.log("Back pressed")}
+         onBackPress={() => navigation.goBack()}
       />
 
       <View
@@ -52,7 +78,7 @@ const AddRecordOne = ({ onBackPress, onButtonPress, buttonText }) => {
               </View>
               <View>
                 <TouchableOpacity>
-                  <Icon name="facebook" size={24} color="#3b5998" />
+                  <Icon name="edit" size={24} color="#677294" />
                 </TouchableOpacity>
               </View>
             </View>
@@ -70,22 +96,33 @@ const AddRecordOne = ({ onBackPress, onButtonPress, buttonText }) => {
                 alignItems: "center",
               }}
             >
-              {Array(3)
-                .fill(null)
-                .map((_, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={{
-                      alignItems: "center",
-                      // padding: 10,
-                      marginRight: 50,
-                      borderRadius: 10,
-                    }}
+              {menuItems.map((item, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={{
+                    alignItems: "center",
+                    marginRight: 50,
+                    borderRadius: 10,
+                  }}
+                  onPress={() => handlePress(index)}
+                >
+                  <Icon
+                    name={item.iconName}
+                    size={24}
+                    color={selectedIndex === index ? "#0EBE7F" : "#677294"}
+                  />
+                  <Text
+                    style={[
+                      styles.reporttitle,
+                      {
+                        color: selectedIndex === index ? "#0EBE7F" : "#677294",
+                      },
+                    ]}
                   >
-                    <Icon name="facebook" size={24} color="#3b5998" />
-                    <Text style={styles.reporttitle}>Report</Text>
-                  </TouchableOpacity>
-                ))}
+                    {item.title}
+                  </Text>
+                </TouchableOpacity>
+              ))}
             </View>
 
             <View style={styles.divider} />
@@ -107,7 +144,7 @@ const AddRecordOne = ({ onBackPress, onButtonPress, buttonText }) => {
               </View>
               <View>
                 <TouchableOpacity>
-                  <Icon name="facebook" size={24} color="#3b5998" />
+                  <Icon name="edit" size={24} color="#677294" />
                 </TouchableOpacity>
               </View>
             </View>
@@ -115,13 +152,15 @@ const AddRecordOne = ({ onBackPress, onButtonPress, buttonText }) => {
 
             <View style={styles.uploadButton}>
               <CustomButton
-                onPress={onButtonPress}
+                onButtonPress={handleContinue}
                 buttonText={"Upload record"}
               />
             </View>
           </View>
         </View>
       </View>
+    </BackgroundWrapper>
+
     </>
   );
 };

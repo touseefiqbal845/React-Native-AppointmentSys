@@ -8,10 +8,13 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import CustomButton from "../../components/Custom-Button/CustomButton";
 import CustomSplash from "../../components/Custom-Splash/CustomSplash";
 
 const AddRecordTowComponent = ({ onBackPress }) => {
+  const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = useState(true);
 
   return (
@@ -157,7 +160,7 @@ const AddRecordTow = ({ onBackPress }) => {
       <CustomSplash
         backIcon={require("../../assets/back-arrow.png")}
         backText="Medical Records"
-        onBackPress={() => console.log("Back pressed")}
+        onBackPress={() => navigation.goBack()}
         Img={require("../../assets/MedicalRecordOne.png")}
         imgbackColor="#C6EFE5"
         bigHeading="Add a medical record."

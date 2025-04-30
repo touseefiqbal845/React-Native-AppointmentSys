@@ -8,13 +8,17 @@ import {
   Animated,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import ListClicker from "../../components/ListClicker/ListClicker";
 import menusApi from "../../helpers/menusApi";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import CustomInput from "../../components/Custom-Input/CustomInput";
 import issues from "./../../helpers/issueApi";
+import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
 
 const HelpCenter = ({ onBackPress }) => {
+  const navigation = useNavigation();
   const [scale] = useState(new Animated.Value(1));
   const [bgColor, setBgColor] = useState("#6F7FA1");
 
@@ -38,51 +42,54 @@ const HelpCenter = ({ onBackPress }) => {
 
   return (
     <>
-      <CustomHeader
-        backText={"Help Center"}
-        onBackPress={() => console.log("Back pressed")}
-      />
-      <View
-        style={{
-          marginLeft: 15,
-          marginRight: 15,
-          marginTop: 10,
-        }}
-      >
-        <CustomInput
-          placeholder="I have an issue with"
-          fontSize={16}
-          fontColor="#A0A3B5"
+      <BackgroundWrapper>
+        <CustomHeader
+          backText={"Help Center"}
+          onBackPress={() => navigation.goBack()}
         />
-      </View>
-      <View
-        style={{
-          marginLeft: 15,
-          marginRight: 15,
-          marginTop: 10,
-        }}
-      >
-        <FlatList
-          data={issues}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={onBackPress}>
-              <ListClicker
-                data={item}
-                CustomizeClicker
-                endIcon
-                TextfontSize={16}
-              />
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item) => item.id}
-          numRows={2}
-                   ItemSeparatorComponent={() => <View style={{ height: 25 }} />}
-         
-          contentContainerStyle={{
-            // marginLeft: 10,
+        <View
+          style={{
+            marginLeft: 15,
+            marginRight: 15,
+            marginTop: 10,
           }}
-        />
-      </View>
+        >
+          <CustomInput
+            placeholder="I have an issue with"
+            fontSize={16}
+            fontColor="#A0A3B5"
+          />
+        </View>
+        <View
+          style={{
+            marginLeft: 15,
+            marginRight: 15,
+            marginTop: 10,
+          }}
+        >
+          <FlatList
+            data={issues}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={onBackPress}>
+                <ListClicker
+                  data={item}
+                  CustomizeClicker
+                  endIcon
+                  TextfontSize={16}
+                />
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item) => item.id}
+            numRows={2}
+            ItemSeparatorComponent={() => <View style={{ height: 25 }} />}
+            contentContainerStyle={
+              {
+                // marginLeft: 10,
+              }
+            }
+          />
+        </View>
+      </BackgroundWrapper>
     </>
   );
 };

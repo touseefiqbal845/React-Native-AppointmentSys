@@ -8,12 +8,15 @@ import {
   Animated,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import ListClicker from "../../components/ListClicker/ListClicker";
 import menusApi from "../../helpers/menusApi";
 
 const MenuScreen = ({ onBackPress }) => {
   const [scale] = useState(new Animated.Value(1));
   const [bgColor, setBgColor] = useState("#6F7FA1");
+  const navigation = useNavigation();
 
   const handlePressIn = () => {
     Animated.timing(scale, {
@@ -121,7 +124,19 @@ const MenuScreen = ({ onBackPress }) => {
         >
           <FlatList
             data={menusApi}
-            renderItem={({ item }) => <ListClicker menu={item} MenuSet />}
+            renderItem={({ item }) => (
+              <ListClicker
+                menu={item}
+                MenuSet
+                onBackPress={() => {
+                  if (item.screen) {
+                    navigation.navigate(item.screen);
+                  } else {
+                    console.warn("No screen set for this menu item.");
+                  }
+                }}
+              />
+            )}
             keyExtractor={(item) => item.id}
             numRows={2}
             contentContainerStyle={{

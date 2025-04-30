@@ -4,11 +4,11 @@ import { customStyles } from "../../fonts/fontSetting";
 
 const CustomButton = ({
   buttonText,
-  smallTextPermission ,
-  backgroundColor ,
-  borderColor ,
-  borderWidth ,
-  textcolor ,
+  smallTextPermission,
+  backgroundColor,
+  borderColor,
+  borderWidth,
+  textcolor,
   isPressedbordercolor,
   isPressedcolor,
   isPressedborderWidth,
@@ -18,20 +18,34 @@ const CustomButton = ({
   const [isPressed, setIsPressed] = useState(false);
 
   return (
-    
     <TouchableOpacity
+    activeOpacity={0.7}
       style={[
+        
         styles.button,
         {
-          backgroundColor: isPressed ? isPressedcolor : backgroundColor ?backgroundColor : customStyles.colorPrimary,
-          borderColor: isPressed ? isPressedbordercolor : borderColor ? borderColor : "",
-          borderWidth: isPressed ? isPressedborderWidth : borderWidth ? borderWidth : 0,
-          width: width? width : "100%",
+          backgroundColor: isPressed
+            ? isPressedcolor || backgroundColor ||"rgb(41, 239, 170)"
+            : backgroundColor
+            ? backgroundColor
+            : customStyles.colorPrimary,
+
+          borderColor: isPressed
+            ? isPressedbordercolor 
+            : borderColor
+            ? borderColor
+            : "",
+          borderWidth: isPressed
+            ? isPressedborderWidth
+            : borderWidth
+            ? borderWidth
+            : 0,
+          width: width ? width : "100%",
         },
       ]}
-      onPressIn={() => setIsPressed(true)} 
-      onPressOut={() => setIsPressed(false)} 
-      onPress={onButtonPress} 
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
+      onPress={onButtonPress}
     >
       <Text
         style={[

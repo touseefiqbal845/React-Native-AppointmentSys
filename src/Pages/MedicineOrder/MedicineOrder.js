@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, View, FlatList, Image, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import CustomInput from "../../components/Custom-Input/CustomInput";
 import medicinesOrders from "./../../helpers/medicineOrderApi";
@@ -12,11 +14,14 @@ const Item = ({ issue }) => (
 );
 
 const MedicineOrder = () => {
+  const navigation = useNavigation();
+
   return (
     <>
+  
       <CustomHeader
         backText={"Medicines orders"}
-        onBackPress={() => console.log("Back pressed")}
+        onBackPress={() => navigation.goBack()}
       />
       <View style={styles.inputContainer}>
         <CustomInput

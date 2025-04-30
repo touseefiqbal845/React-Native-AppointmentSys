@@ -1,12 +1,17 @@
 import React from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import CustomSplash from "../../components/Custom-Splash/CustomSplash";
 
 const LocationScreen = () => {
+  const navigation = useNavigation();
+
   return (
+  
     <CustomSplash
       backIcon={require("../../assets/back-arrow.png")}
       backText="Enable Location Services"
-      onBackPress={() => console.log("Back pressed")}
       Img={require("../../assets/location.png")}
       imgbackColor="#C6EFE5"
       bigHeading="Location"
@@ -14,7 +19,8 @@ const LocationScreen = () => {
 enable location, to help us serve better."
       fontSize={20}
       buttonText="Enable Location"
-      onButtonPress={() => console.log("")}
+      onButtonPress={() => navigation.navigate("MenuScreen")}
+      onBackPress={() => navigation.goBack()}
       backgroundColor="#C6EFE5"
     />
   );

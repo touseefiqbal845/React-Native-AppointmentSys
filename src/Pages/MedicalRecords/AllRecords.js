@@ -8,9 +8,12 @@ import {
   Animated,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import records from "./../../helpers/allRecords";
 import CustomButton from "../../components/Custom-Button/CustomButton";
+import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
 
 const Item = ({ record }) => (
   <View
@@ -127,14 +130,21 @@ const Item = ({ record }) => (
   </View>
 );
 
-const AllRecords = ({ onBackPress,onButtonPress,buttonText}) => {
+const AllRecords = ({ onBackPress, onButtonPress, buttonText }) => {
+  const navigation = useNavigation();
+
+  const handleContinue = () => {
+    navigation.navigate("MedicalRecordOne");
+  };
   return (
     <>
+    <BackgroundWrapper>
+
       <CustomHeader
         backText={"All Records"}
-        onBackPress={() => console.log("Back pressed")}
+         onBackPress={() => navigation.goBack()}
       />
-       
+
       <FlatList
         data={records}
         renderItem={({ item }) => <Item record={item} />}
@@ -142,14 +152,18 @@ const AllRecords = ({ onBackPress,onButtonPress,buttonText}) => {
         numRows={1}
         contentContainerStyle={styles.listContainer}
       />
-     <View style={{
-        justifyContent: "space-between",
-        alignItems:"space-between",
-        width:"100%",
-        padding: 50,
-      }}>
-        <CustomButton onPress={onButtonPress} buttonText={"Add a Record"} />
+      <View
+        style={{
+          justifyContent: "space-between",
+          alignItems: "space-between",
+          width: "100%",
+          padding: 50,
+        }}
+      >
+        <CustomButton onPress={onButtonPress} onButtonPress={handleContinue} buttonText={"Add a Record"} />
       </View>
+    </BackgroundWrapper>
+
     </>
   );
 };

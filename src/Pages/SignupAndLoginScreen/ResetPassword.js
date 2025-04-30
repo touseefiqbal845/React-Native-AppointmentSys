@@ -8,16 +8,18 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import CustomInput from "../../components/Custom-Input/CustomInput";
 import CustomButton from "../../components/Custom-Button/CustomButton";
 
 const ResetPassword = ({ onButtonPress }) => {
+  const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = useState(true);
   const [email, setEmail] = useState("");
 
   const handleContinue = () => {
-    console.log("Email entered:", email);
-    setIsModalVisible(false);
+    navigation.navigate("MenuScreen");
+    setIsModalVisible(true);
   };
 
   return (
@@ -45,7 +47,7 @@ const ResetPassword = ({ onButtonPress }) => {
 
             <CustomInput
               isPassword
-              eyeicon={"google"}
+              eyeicon={"password"}
               iconPosition={"end"}
               placeholder="New Password"
               fontSize={16}
@@ -53,7 +55,7 @@ const ResetPassword = ({ onButtonPress }) => {
             />
             <CustomInput
               isPassword
-              eyeicon={"google"}
+              eyeicon={"password"}
               iconPosition={"end"}
               placeholder="Re-enter Password"
               fontSize={16}
@@ -61,7 +63,10 @@ const ResetPassword = ({ onButtonPress }) => {
             />
 
             <View style={styles.continueButton}>
-              <CustomButton onPress={onButtonPress} buttonText={"Udate Password"} />
+              <CustomButton
+                buttonText="Update Password"
+                onButtonPress={handleContinue}
+              />
             </View>
           </View>
         </View>
@@ -75,7 +80,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#000",
   },
 
   modalOverlay: {

@@ -260,11 +260,9 @@ const DoctorBio = ({
               {OnlyRating && (
                 <View style={styles.reviews}>
                   <Text style={styles.Stories}>
-                    <Text style={{ fontWeight: "bold", color: "#00000" }}>
-                      {" "}
-                      2.4
-                    </Text>{" "}
-                    [2475 views]
+                    {[...Array(5)].map((_, index) => (
+                      <Icon key={index} name="star" size={15} color="#FFD700" />
+                    ))}
                   </Text>
                 </View>
               )}
@@ -315,7 +313,10 @@ const DoctorBio = ({
               )}
 
               <View style={styles.customButton}>
-                <CustomButton onPress={onButtonPress} buttonText={"Book Now"} />
+                <CustomButton
+                  onButtonPress={onButtonPress}
+                  buttonText={"Book Now"}
+                />
               </View>
             </View>
           )}

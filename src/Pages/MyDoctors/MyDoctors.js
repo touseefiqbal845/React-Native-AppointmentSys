@@ -1,51 +1,55 @@
 import React from "react";
 import { StyleSheet, View, FlatList } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import DoctorBio from "../../components/Doctors-Bio/DoctorBio";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import doctors from "../../helpers/doctorsApi";
 import CustomInput from "../../components/Custom-Input/CustomInput";
+import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
 
 const MyDoctors = () => {
+  const navigation = useNavigation();
 
-  
   return (
     <>
-      <CustomHeader
-        backText={"My Doctors"}
-        onBackPress={() => console.log("Back pressed")}
-      />
-      <View
-        style={{
-          marginLeft: 15,
-          marginRight: 15,
-          marginTop: 10,
-        }}
-      >
-        <CustomInput
-          iconPositionStart={"start"}
-          icon={"google"}
-          iconPositionEnd={"end"}
-          placeholder="Search"
-          fontSize={16}
-          fontColor="#A0A3B5"
+      <BackgroundWrapper>
+        <CustomHeader
+          backText={"My Doctors"}
+          onBackPress={() => navigation.goBack()}
         />
-      </View>
-      <FlatList
-        data={doctors}
-        renderItem={({ item }) => (
-          <DoctorBio
-            doctor={item}
-            onButtonPress={() => console.log("Button Pressed")}
-            findDoctor={true}
-            OnlyBook={true}
-             exp={true}
-
+        <View
+          style={{
+            marginLeft: 15,
+            marginRight: 15,
+            marginTop: 10,
+          }}
+        >
+          <CustomInput
+            // iconPositionStart={"start"}
+            icon={"search"}
+            iconPositionEnd={"end"}
+            placeholder="Search"
+            fontSize={16}
+            fontColor="#A0A3B5"
           />
-        )}
-        keyExtractor={(item) => item.id}
-        numRows={2}
-        // contentContainerStyle={styles.listContainer}
-      />
+        </View>
+        <FlatList
+          data={doctors}
+          renderItem={({ item }) => (
+            <DoctorBio
+              doctor={item}
+              onButtonPress={() => navigation.navigate("SelectTimeOne")}
+              findDoctor={true}
+              OnlyBook={true}
+              exp={true}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+          numRows={2}
+          // contentContainerStyle={styles.listContainer}
+        />
+      </BackgroundWrapper>
     </>
   );
 };

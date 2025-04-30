@@ -1,11 +1,16 @@
 import React from "react";
 import { FlatList, View, StyleSheet, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import DoctorBio from "../../components/Doctors-Bio/DoctorBio";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import singleDoctor from "../../helpers/SingleDoctorApi";
 import CustomButton from "../../components/Custom-Button/CustomButton";
+import BackgroundWrapper from "../SplashScreen/BackgroundWrapper";
 
 const SelectTimeOne = () => {
+  const navigation = useNavigation();
+
   const buttonData = [
     { id: "1", date: "Today, 23 Feb", availability: "No slots available" },
     { id: "2", date: "Tommorow, 24 Feb", availability: "5 slots available" },
@@ -14,14 +19,16 @@ const SelectTimeOne = () => {
 
   return (
     <>
+    <BackgroundWrapper>
+
       <CustomHeader
         backText={"Select Time"}
-        onBackPress={() => console.log("Back pressed")}
+         onBackPress={() => navigation.goBack()}
       />
       <View style={styles.DoctorBiocontainer}>
         <DoctorBio
           doctor={singleDoctor}
-          onButtonPress={() => console.log("Button Pressed")}
+          onButtonPress={() => navigation.navigate("SelectTimeTwo")}
           OnlyRating={true}
           exp={true}
         />
@@ -37,7 +44,7 @@ const SelectTimeOne = () => {
               width={"auto"}
               buttonText={item.date}
               smallTextPermission={item.availability}
-              onButtonPress={() => console.log(`Button Pressed: ${item.date}`)}
+              onButtonPress={() => navigation.navigate("SelectTimeTwo")}
               textcolor={"#000000"}
               backgroundColor={"transparent"}
               borderColor={"#6772941A"}
@@ -61,7 +68,8 @@ const SelectTimeOne = () => {
         <View style={styles.buttonContainer}>
           <CustomButton
             buttonText={"Next availability on Wed, 24 Feb"}
-            onButtonPress={() => console.log(`Button Pressed:`)}
+            onButtonPress={() => navigation.navigate("SelectTimeTwo")}
+
           />
         </View>
 
@@ -81,6 +89,8 @@ const SelectTimeOne = () => {
           />
         </View>
       </View>
+    </BackgroundWrapper>
+
     </>
   );
 };

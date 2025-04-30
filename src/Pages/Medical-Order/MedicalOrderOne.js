@@ -1,12 +1,17 @@
 import React from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import CustomSplash from "../../components/Custom-Splash/CustomSplash";
 
 const MedicalOrderOne = () => {
+  const navigation = useNavigation();
+
   return (
     <CustomSplash
       backIcon={require("../../assets/back-arrow.png")}
       backText="Medicine Orders"
-      onBackPress={() => console.log("Back pressed")}
+      onBackPress={() => navigation.goBack()}
       Img={require("../../assets/medicalorder.png")}
       imgbackColor="#C6EFE5"
       bigHeading="No orders placed yet."

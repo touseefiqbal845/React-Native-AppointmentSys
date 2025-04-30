@@ -7,6 +7,9 @@ import {
   Modal,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+
 import Icon from "react-native-vector-icons/FontAwesome";
 import DoctorBio from "../../components/Doctors-Bio/DoctorBio";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
@@ -15,11 +18,13 @@ import doctorsApi from "../../helpers/doctorsApi";
 import ListClicker from "../../components/ListClicker/ListClicker";
 
 const FavDoctor = () => {
+    const navigation = useNavigation();
+  
   return (
     <>
       <CustomHeader
         backText={"Favourite Doctors"}
-        onBackPress={() => console.log("Back pressed")}
+         onBackPress={() => navigation.goBack()}
       />
 
       <View style={styles.container}>

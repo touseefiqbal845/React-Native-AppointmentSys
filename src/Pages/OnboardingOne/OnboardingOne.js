@@ -1,7 +1,10 @@
 import React from "react";
 import CustomOnboarding from "./CustomOnboarding";
+import { useNavigation } from "@react-navigation/native";
 
 const OnboardingOne = () => {
+  const navigation = useNavigation();
+
   return (
     <CustomOnboarding
       Img={require("../../assets/onboardingOne.png")}
@@ -11,8 +14,7 @@ const OnboardingOne = () => {
       fontSize={20}
       buttonText="Get Started"
       onButtonPress={() => console.log("")}
-      onSkipPress={() => console.log("")}
-      
+      onSkipPress={() => navigation.navigate("OnboardingTwo")}
     />
   );
 };

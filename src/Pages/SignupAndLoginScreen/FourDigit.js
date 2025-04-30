@@ -7,11 +7,14 @@ import {
   Modal,
   StyleSheet,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import CustomButton from "../../components/Custom-Button/CustomButton";
 
 const FourDigit = ({ onSubmitCode }) => {
   const [isModalVisible, setIsModalVisible] = useState(true);
   const [code, setCode] = useState(["", "", "", ""]);
+  const navigation = useNavigation();
 
   const handleInputChange = (text, index) => {
     let newCode = [...code];
@@ -20,6 +23,11 @@ const FourDigit = ({ onSubmitCode }) => {
     if (text && index < 3) {
       inputs[index + 1].focus();
     }
+  };
+
+  const handleContinue = () => {
+    navigation.navigate("ResetPasswordScreen");
+    setIsModalVisible(true);
   };
 
   const inputs = [];
@@ -62,6 +70,7 @@ const FourDigit = ({ onSubmitCode }) => {
               onSubmitCode(code.join(""));
               setIsModalVisible(false);
             }}
+            onButtonPress={handleContinue}
           />
         </View>
       </View>

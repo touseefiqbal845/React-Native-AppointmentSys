@@ -1,16 +1,22 @@
 import React from "react";
 import { StyleSheet, View, FlatList } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+
 import DoctorBio from "../../components/Doctors-Bio/DoctorBio";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import doctors from "../../helpers/doctorsApi";
 import CustomInput from "../../components/Custom-Input/CustomInput";
 
 const FindDoctors = () => {
+      const navigation = useNavigation();
+  
+      
   return (
     <>
       <CustomHeader
         backText={"Find Doctors"}
-        onBackPress={() => console.log("Back pressed")}
+         onBackPress={() => navigation.goBack()}
       />
       <View
         style={{

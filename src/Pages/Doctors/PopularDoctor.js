@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, View, FlatList, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import DoctorBio from "../../components/Doctors-Bio/DoctorBio";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import CustomInput from "../../components/Custom-Input/CustomInput";
@@ -7,11 +9,13 @@ import doctorsApi from "../../helpers/doctorsApi";
 import ListClicker from "../../components/ListClicker/ListClicker";
 
 const PopularDoctor = () => {
+  const navigation = useNavigation();
+  
   return (
     <>
       <CustomHeader
         backText={"Popular Doctors"}
-        onBackPress={() => console.log("Back pressed")}
+         onBackPress={() => navigation.goBack()}
       />
 
       <View style={styles.container}>

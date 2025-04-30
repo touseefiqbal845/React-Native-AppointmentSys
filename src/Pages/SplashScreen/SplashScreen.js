@@ -1,14 +1,26 @@
-import React from 'react';
-import CustomSplash from '../../components/Custom-Splash/CustomSplash';
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
+import CustomSplash from "../../components/Custom-Splash/CustomSplash";
+import BackgroundWrapper from "./BackgroundWrapper";
 
 const SplashScreen = () => {
   return (
-    <CustomSplash
-    Img={require('../../assets/logo.png')} 
-    bigHeading="Doctor Hunt"
-    fontSize={25}
-    />
+    <BackgroundWrapper>
+      <View style={styles.container}>
+        <CustomSplash
+          Img={require("../../assets/logo.png")}
+          bigHeading="Doctor Hunt"
+          fontSize={25}
+        />
+      </View>
+    </BackgroundWrapper>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default SplashScreen;
